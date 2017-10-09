@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<canvas id="hexaversion-container" width="640" height="480">
+</canvas>
+
+<script>
+
+window.addEventListener(
+    "load",
+    function() {
+      canvas = document.getElementById("hexaversion-container");
+      context = canvas.getContext("2d");
+      width = canvas.width;
+      height = canvas.height;
+
+      redraw = function() {
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, width, height);
+      }
+
+      rt = Math.sqrt(3 / 4);
+
+      draw_hex = function(x, y, size) {
+        context.moveTo(x + size * 0 / 4, y - size * 4 / 4);
+        context.lineTo(x + size * rt, y - size * 1 / 2);
+        context.lineTo(x + size * rt, y + size * 1 / 2);
+        context.lineTo(x + size * 0 / 4, y + size * 4 / 4);
+        context.lineTo(x - size * rt, y + size * 1 / 2);
+        context.lineTo(x - size * rt, y - size * 1 / 2);
+        context.lineTo(x + size * 0 / 4, y - size * 4 / 4);
+        context.stroke();
+      }
+
+      redraw();
+      size = 64;
+      for (x = 0; x < 8; x += 1) {
+        for (y = 0; y < 4; y += 1) {
+          draw_hex(size + size * x * rt, size + size * y * 2 * 3 / 4, size / 2);
+          draw_hex(size + size * rt / 2 + size * x * rt, size + size * 3 / 4 + size * y * 2 * 3 / 4, size / 2);
+        }
+      }
+
+    }
+  );
+
+
+</script>
+
+</body>
+</html>
